@@ -1,5 +1,5 @@
-import preferTypes from "./rules/no-fc";
+import noFc from "./rules/no-fc";
 
 export const rules = {
-  "no-fc": preferTypes,
+  "no-fc": noFc,
 };
