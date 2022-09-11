@@ -1,8 +1,8 @@
 # ban use of `React.FC` or `React.VFC` when typing component props
 
-`React.VFC` is deprecated in React 18 and should no longer be used. `React.FC` will also be losing it's `children` prop in React 18 so not using can with migrating to React 18.
+`React.VFC` is deprecated in React 18 and should no longer be used. `React.FC` also no longer has it's `children` prop in React 18 so use of `React.FC` can cause issues when migrating to React 18.
 
-In general, there is not much reason to use `React.VFC` or `React.FC` as anything they can do can be accomplished with a simple function parameter type like so,
+In general, there is not much reason to use `React.VFC` or `React.FC` as anything they can do can be accomplished with a simple function parameter type while being less verbose like so,
 
 ```ts
 type Props = { ... }
