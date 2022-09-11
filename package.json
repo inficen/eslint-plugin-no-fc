@@ -59,10 +59,11 @@
     "eslintplugin",
     "eslint-plugin",
     "typescript",
-    "type",
-    "types",
-    "interface",
-    "prefer",
+    "FunctionComponent",
+    "VoidFunctionComponent",
+    "React",
+    "VFC",
+    "FC",
     "no-fc"
   ]
 }

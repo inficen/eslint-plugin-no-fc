@@ -5,7 +5,8 @@ const rule = ruleCreator({
   name: "uppercase-first-declarations",
   meta: {
     docs: {
-      description: "prevent usage of React.FC and React.VFC when typing react components",
+      description:
+        "prevent usage of React.FC and React.VFC when typing react components",
       recommended: "warn",
     },
     messages: {
@@ -32,39 +33,38 @@ const rule = ruleCreator({
       ) => {
         defaultReactImportName = node.local.name
       },
-      "VariableDeclarator > Identifier > TSTypeAnnotation > TSTypeReference > TSQualifiedName": (
-        node: TSESTree.TSQualifiedName
-      ) => {
-        if (!defaultReactImportName) {
-          return
-        }
+      "VariableDeclarator > Identifier > TSTypeAnnotation > TSTypeReference > TSQualifiedName":
+        (node: TSESTree.TSQualifiedName) => {
+          if (!defaultReactImportName) {
+            return
+          }
 
-        if (
-          ASTUtils.isIdentifier(node.left) &&
-          node.left.name === defaultReactImportName
-        ) {
-          if (ASTUtils.isIdentifier(node.right)) {
-            if (
-              node.right.name === "FC" ||
-              node.right.name === "FunctionComponent"
-            ) {
-              context.report({
-                messageId: "noFC",
-                node: node.right,
-              })
-            }
-            if (
-              node.right.name === "VFC" ||
-              node.right.name === "VoidFunctionComponent"
-            ) {
-              context.report({
-                messageId: "noVFC",
-                node: node.right,
-              })
+          if (
+            ASTUtils.isIdentifier(node.left) &&
+            node.left.name === defaultReactImportName
+          ) {
+            if (ASTUtils.isIdentifier(node.right)) {
+              if (
+                node.right.name === "FC" ||
+                node.right.name === "FunctionComponent"
+              ) {
+                context.report({
+                  messageId: "noFC",
+                  node: node.right,
+                })
+              }
+              if (
+                node.right.name === "VFC" ||
+                node.right.name === "VoidFunctionComponent"
+              ) {
+                context.report({
+                  messageId: "noVFC",
+                  node: node.right,
+                })
+              }
             }
           }
-        }
-      },
+        },
 
       // Handle Named Imports
       'ImportDeclaration[source.value="react"] > ImportSpecifier': (
@@ -83,23 +83,25 @@ const rule = ruleCreator({
           voidFunctionComponentName = node.local.name
         }
       },
-      "VariableDeclarator > Identifier > TSTypeAnnotation > TSTypeReference > Identifier": (
-        node: TSESTree.Identifier
-      ) => {
-        if (node.name === fcName || node.name === functionComponentName) {
-          context.report({
-            messageId: "noFC",
-            node,
-          })
-        }
+      "VariableDeclarator > Identifier > TSTypeAnnotation > TSTypeReference > Identifier":
+        (node: TSESTree.Identifier) => {
+          if (node.name === fcName || node.name === functionComponentName) {
+            context.report({
+              messageId: "noFC",
+              node,
+            })
+          }
 
-        if (node.name === vfcName || node.name === voidFunctionComponentName) {
-          context.report({
-            messageId: "noVFC",
-            node,
-          })
-        }
-      },
+          if (
+            node.name === vfcName ||
+            node.name === voidFunctionComponentName
+          ) {
+            context.report({
+              messageId: "noVFC",
+              node,
+            })
+          }
+        },
     }
   },
 })
