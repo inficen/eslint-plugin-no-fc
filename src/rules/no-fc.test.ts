@@ -4,6 +4,43 @@ import { ruleTester } from "test-utils"
 ruleTester.run("no-fc", rule, {
   valid: [
     {
+      code: `import React from 'not-react'
+
+        type MyComponentProps = {
+          value: string
+        }
+
+        const MyComponentProps: React.FC<MyComponentProps> = (props: MyComponentProps) => {
+          return null
+        }
+      `,
+    },
+    {
+      code: `import { FC } from 'not-react'
+
+        type MyComponentProps = {
+          value: string
+        }
+
+        const MyComponentProps: FC<MyComponentProps> = (props: MyComponentProps) => {
+          return null
+        }
+      `,
+    },
+    {
+      code: `import React from 'react'
+        import { FC } from 'not-react'
+
+        type MyComponentProps = {
+          value: string
+        }
+
+        const MyComponentProps: FC<MyComponentProps> = (props: MyComponentProps) => {
+          return null
+        }
+      `,
+    },
+    {
       code: `type MyComponentProps = {
           value: string
         }
