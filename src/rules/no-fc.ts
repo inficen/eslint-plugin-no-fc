@@ -2,7 +2,7 @@ import { ruleCreator } from "utils"
 import { TSESTree, ASTUtils } from "@typescript-eslint/utils"
 
 const rule = ruleCreator({
-  name: "uppercase-first-declarations",
+  name: "no-fc",
   meta: {
     docs: {
       description:
